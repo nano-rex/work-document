@@ -80,6 +80,10 @@ def embed_images(html: str) -> str:
 
 
 def main():
+    if not (SRC / "pages").is_dir() or not (SRC / "img").is_dir():
+        sys.exit(f"No plaintext sources in {SRC}. src/ is never in git, so a fresh clone "
+                 "cannot build. Run this in the folder that has src/pages and src/img "
+                 "(~/github/work-document.netlify.app).")
     password = get_password()
     salt = os.urandom(16)
     key = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt,
