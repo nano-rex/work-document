@@ -1,0 +1,153 @@
+/* Work Documents — shared styles.
+   App chrome follows the device's light/dark setting.
+   Document sheets are always white paper so exports look the same everywhere. */
+
+:root {
+  color-scheme: light;
+  --bg: #e9ecf0;
+  --surface: #ffffff;
+  --text: #1b1f24;
+  --muted: #5b6470;
+  --border: #d3d8df;
+  --accent: #2463d1;
+  --accent-text: #ffffff;
+  --danger: #b3261e;
+  --focus: #2463d1;
+  --sheet-shadow: 0 1px 2px rgba(0, 0, 0, .10), 0 6px 24px rgba(0, 0, 0, .10);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #14171b;
+    --surface: #1e2329;
+    --text: #e6e9ed;
+    --muted: #9aa3ad;
+    --border: #353c45;
+    --accent: #6b9cf2;
+    --accent-text: #0b1220;
+    --danger: #f2827a;
+    --focus: #8fb4f6;
+    --sheet-shadow: 0 1px 2px rgba(0, 0, 0, .6), 0 6px 24px rgba(0, 0, 0, .5);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #14171b;
+  --surface: #1e2329;
+  --text: #e6e9ed;
+  --muted: #9aa3ad;
+  --border: #353c45;
+  --accent: #6b9cf2;
+  --accent-text: #0b1220;
+  --danger: #f2827a;
+  --focus: #8fb4f6;
+  --sheet-shadow: 0 1px 2px rgba(0, 0, 0, .6), 0 6px 24px rgba(0, 0, 0, .5);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 36px; padding: 6px 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); color: var(--text);
+  font: inherit; font-size: 14px; text-decoration: none; white-space: nowrap;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--muted); }
+.btn:disabled { opacity: .6; cursor: progress; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.btn-ghost { background: transparent; border-color: transparent; }
+.btn-ghost:hover { border-color: var(--border); }
+.btn[aria-pressed="true"] { background: var(--text); color: var(--surface); border-color: var(--text); }
+.seg { display: inline-flex; }
+.seg .btn:first-child { border-radius: 8px 0 0 8px; }
+.seg .btn:last-child { border-radius: 0 8px 8px 0; margin-left: -1px; }
+
+/* ---------- Toolbar ---------- */
+.toolbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  padding: 8px 16px;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+}
+.toolbar-title { font-size: 16px; margin-right: auto; }
+.toolbar .group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- Lock screen ---------- */
+.lock { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+.lock-card {
+  width: 100%; max-width: 360px; padding: 24px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  display: grid; gap: 10px;
+}
+.lock-card h1 { margin: 0; font-size: 20px; }
+.lock-card p { margin: 0; color: var(--muted); }
+.lock-card input {
+  width: 100%; min-height: 44px; padding: 8px 12px;
+  font: inherit; font-size: 16px; color: var(--text);
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+}
+.lock-card button { min-height: 44px; font-size: 16px; }
+.lock-msg { min-height: 1.4em; font-size: 14px; }
+.lock-msg.error { color: var(--danger) !important; }
+
+/* ---------- Home ---------- */
+.home { max-width: 720px; margin: 0 auto; padding: 24px 16px; display: grid; gap: 12px; }
+.card {
+  display: grid; gap: 2px; padding: 16px 18px;
+  background: var(--surface); color: var(--text); text-decoration: none;
+  border: 1px solid var(--border); border-radius: 12px;
+}
+.card:hover { border-color: var(--accent); }
+.card-title { font-weight: 600; font-size: 17px; }
+.card-sub { color: var(--muted); font-size: 14px; }
+
+/* ---------- Document stage + A4 sheet ---------- */
+.stage { padding: 16px; overflow-x: auto; }
+.sheet {
+  /* Fixed A4 canvas: 210mm x 297mm = 794 x 1123 CSS px. Scaled to fit by doc.js. */
+  width: 794px; min-height: 1123px;
+  margin: 0 auto;
+  padding: 52px 56px;
+  background: #fff; color: #000;
+  color-scheme: light;
+  box-shadow: var(--sheet-shadow);
+  font: 12px/1.45 Arial, Helvetica, sans-serif;
+}
+.sheet input, .sheet select, .sheet textarea {
+  font: inherit; color: #000; background: #fff;
+  border: 1px solid #b9c0c9; border-radius: 3px; padding: 1px 4px;
+  max-width: 100%;
+}
+.sheet input:focus, .sheet select:focus, .sheet textarea:focus { outline: 2px solid #2463d1; outline-offset: 0; }
+.sheet .bare { border-color: transparent; background: #f4f7fb; }
+.sheet .full { width: 100%; }
+.sheet .mini-btn {
+  font: 12px/1 Arial, sans-serif; width: 22px; height: 20px; padding: 0;
+  border: 1px solid #b9c0c9; border-radius: 3px; background: #fff; color: #000; cursor: pointer;
+}
+
+/* Text that replaces form fields during PDF / image / print export */
+.frozen { display: inline-block; white-space: pre-wrap; vertical-align: baseline; min-height: 1em; }
+.frozen.block { display: block; width: 100%; }
+
+/* ---------- Print ---------- */
+@page { size: A4; margin: 0; }
+@media print {
+  body { background: #fff; min-height: 0; }
+  .toolbar, [data-no-export] { display: none !important; }
+  .stage { padding: 0; overflow: visible; }
+  .sheet { zoom: 1 !important; box-shadow: none; margin: 0; width: 210mm; min-height: 296mm; }
+}

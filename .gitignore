@@ -1,0 +1,5 @@
+# Plaintext sources with worker NRIC/passport numbers, stamp and signature.
+# NEVER commit these. Only the encrypted build in upload-to-netlify/ is public.
+/src/
+*.pyc
+__pycache__/

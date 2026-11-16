@@ -1,0 +1,6 @@
+# Safety net: if this whole project folder is ever uploaded by mistake,
+# never serve the plaintext sources. Upload ONLY the upload-to-netlify/ folder.
+/src/*          /  404!
+/public/*       /  404!
+/build.py       /  404!
+/README.md      /  404!
